@@ -18,6 +18,8 @@ public class Main {
         ArgumentAcceptingOptionSpec<String> outputOption = parser.acceptsAll(List.of("o", "outputFile"), "The file to output, with selectable text added").withRequiredArg().required();
         ArgumentAcceptingOptionSpec<String> trainingOption = parser.acceptsAll(List.of("t", "trainingData"), "Training data for Tesseract OCR (you can download this from https://github.com/tesseract-ocr/tessdata").withRequiredArg().required();
         ArgumentAcceptingOptionSpec<String> langOption = parser.acceptsAll(List.of("l", "language"), "The language to use for OCR").withRequiredArg().defaultsTo("eng");
+        parser.accepts("visibleText", "Make the OCR text visible (invisible by default)");
+
         parser.acceptsAll(List.of("h", "help"), "Display usage information").forHelp();
 
         OptionSet opts = parser.parse(args);
@@ -34,7 +36,7 @@ public class Main {
         try (PDDocument document = PDDocument.load(new File(opts.valueOf(inputOption)));
              PDFOCRReader reader = new PDFOCRReader(document, opts.valueOf(trainingOption), opts.valueOf(langOption))
         ) {
-            new PDFTextAnnotator(document).addText(reader.read());
+            new PDFTextAnnotator(document, opts.has("visibleText")).addText(reader.read());
             document.save(opts.valueOf(outputOption));
         } catch (IOException e) {
             e.printStackTrace();
