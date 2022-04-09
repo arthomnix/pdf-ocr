@@ -6,6 +6,7 @@ import org.bytedeco.leptonica.PIX;
 import org.bytedeco.tesseract.ResultIterator;
 import org.bytedeco.tesseract.TessBaseAPI;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class ImageTextReader {
             IntPointer right = new IntPointer(1);
             IntPointer bottom = new IntPointer(1);
             ri.BoundingBox(level, left, top, right, bottom);
-            strings.add(new BoundedString(text.getString(), left.get(), top.get(), right.get(), bottom.get()));
+            strings.add(new BoundedString(Normalizer.normalize(text.getString(), Normalizer.Form.NFKC), left.get(), top.get(), right.get(), bottom.get()));
             text.deallocate();
             left.deallocate();
             top.deallocate();
