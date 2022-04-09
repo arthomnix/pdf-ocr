@@ -1,6 +1,5 @@
 package dev.arthomnix.pdfocr.pdf;
 
-import dev.arthomnix.pdfocr.ocr.BoundedString;
 import dev.arthomnix.pdfocr.ocr.TextPage;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
