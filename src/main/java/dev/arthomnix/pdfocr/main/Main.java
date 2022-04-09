@@ -11,7 +11,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The main class, providing a simple CLI interface for adding text to image-only PDF documents.
+ * @author arthomnix
+ */
 public class Main {
+    /**
+     * The main method.
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         OptionParser parser = new OptionParser();
         ArgumentAcceptingOptionSpec<String> inputOption = parser.acceptsAll(List.of("i", "inputFile"), "The file to run OCR on").withRequiredArg().required();

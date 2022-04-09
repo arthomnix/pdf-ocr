@@ -12,13 +12,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+
+/**
+ * A class to read BufferedImages from a PDF document.
+ * The document must contain exactly one image per page.
+ * @author arthomnix
+ */
 public class PDFImageReader {
     private final PDDocument document;
 
+    /**
+     * Constructor that accepts a PDF document as a {@link PDDocument} instance.
+     * @param document A PDF document, must contain exactly one image per page.
+     */
     public PDFImageReader(PDDocument document) {
         this.document = document;
     }
 
+    /**
+     * Reads images from the PDF document.
+     * @return A list of {@link BufferedImage} in page order. There is a 1:1 relation between list items and pages.
+     * @throws IllegalArgumentException if the document contains a page with more or less than one image.
+     */
     public List<BufferedImage> readImages() {
         List<BufferedImage> images = new ArrayList<>();
 
