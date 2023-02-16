@@ -48,7 +48,12 @@ public class PDFOCRReader implements AutoCloseable {
         List<TextPage> pages = new ArrayList<>();
         List<BufferedImage> images = reader.readImages();
         ImageTextReader imageReader = new ImageTextReader(tess);
+        final int[] imageCounter = {0};
+
         images.forEach(image -> {
+            System.out.println("Reading text from page %d/%d".formatted(imageCounter[0] + 1, images.size()));
+            imageCounter[0]++;
+
             try {
                 PIX pix = ImageConversionUtil.bufferedImageToPix(image);
                 pages.add(new TextPage(image.getWidth(), image.getHeight(), imageReader.readImage(pix, RIL_WORD)));

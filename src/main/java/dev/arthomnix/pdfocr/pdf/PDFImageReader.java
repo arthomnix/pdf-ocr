@@ -38,7 +38,12 @@ public class PDFImageReader {
         List<BufferedImage> images = new ArrayList<>();
 
         PDPageTree pages = document.getPages();
+        final int[] pageCounter = {0}; // we need to do this because of lambda weirdness
+
         pages.forEach(page -> {
+            System.out.println("Getting image from page %d/%d".formatted(pageCounter[0] + 1, pages.getCount()));
+            pageCounter[0]++;
+
             PDResources resources = page.getResources();
             Iterable<COSName> objectNames = resources.getXObjectNames();
             AtomicReference<PDImageXObject> image = new AtomicReference<>();
