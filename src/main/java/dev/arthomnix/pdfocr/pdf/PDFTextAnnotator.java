@@ -55,7 +55,7 @@ public class PDFTextAnnotator {
                         if (!visible) {
                             stream.setRenderingMode(RenderingMode.NEITHER);
                         }
-                        stream.showText(boundedString.s());
+                        stream.showText(boundedString.s().replaceAll("[^\\x00-\\x7F]", ""));
                         stream.endText();
                     } catch (IOException e) {
                         e.printStackTrace();
